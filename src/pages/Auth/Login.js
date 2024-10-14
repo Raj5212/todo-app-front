@@ -96,9 +96,9 @@ const Login = () => {
       {auth?.isAuth === true && <Typography color="error">{auth?.error}</Typography>}
       <Typography variant="body2" align="center" style={{ marginTop: '20px' }}>
         Don't have an account?{' '}
-        <Link onClick={() => navigate('/signup')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+        <span onClick={() => navigate('/signup')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
           Sign up
-        </Link>
+        </span>
       </Typography>
 
     </Container>

@@ -7,7 +7,9 @@ import Pages from './pages/index'
 function App() {
   return (
     <Provider store={store}>
+         <Router>
       <Pages/>
+      </Router>
     </Provider>
   );
 }

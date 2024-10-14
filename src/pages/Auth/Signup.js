@@ -135,9 +135,9 @@ const Signup = () => {
 
       <Typography variant="body2" align="center" style={{ marginTop: '20px' }}>
        Already have an account?{' '}
-        <Link onClick={() => navigate('/login')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+        <span onClick={() => navigate('/login')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
           Login
-        </Link>
+        </span>
       </Typography>    </Container>
   );
 };
