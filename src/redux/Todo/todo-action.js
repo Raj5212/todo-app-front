@@ -10,8 +10,7 @@ import API_REQUEST from '../request/index';
 export const fetchTodos = () => async (dispatch) => {
   try {
     dispatch({ type: constants.TODO_LIST_REQUEST });
-    const res = await API_REQUEST(GET, apis.GET_TODO);
-    console.log(res) 
+    const res = await API_REQUEST(GET, apis.GET_TODO); 
     dispatch({
       type: constants.TODO_LIST_SUCCESS,
       payload: res?.data?.data,
@@ -28,10 +27,14 @@ export const addTodo = (data) => async (dispatch) => {
     dispatch({ type: constants.CREATE_TODO });
     const res = await API_REQUEST(POST, apis.ADD_TODO, data); 
 
-    console.log(res)
     dispatch({
       type: constants.TODO_SUCCESS,
       payload: res?.data?.data,
+    });
+    const res1 = await API_REQUEST(GET, apis.GET_TODO); 
+    dispatch({
+      type: constants.TODO_LIST_SUCCESS,
+      payload: res1?.data?.data,
     });
   } catch (err) {
     console.error('addTodo...', err);
@@ -44,6 +47,12 @@ export const updateTodo = (id, data) => async (dispatch) => {
   try {
     dispatch({ type: constants.UPDATE_TODO_REQUEST });
     const res = await API_REQUEST(PUT, `${apis.UPDATE_TODO}/${id}`, data); 
+    const res1 = await API_REQUEST(GET, apis.GET_TODO); 
+    dispatch({
+      type: constants.TODO_LIST_SUCCESS,
+      payload: res1?.data?.data,
+    });
+
     dispatch({
       type: constants.UPDATE_REQUEST_SUCCESS,
       payload: res?.data?.data,
@@ -59,6 +68,11 @@ export const deleteTodo = (id) => async (dispatch) => {
   try {
     dispatch({ type: constants.DELETE_TODO_REQUEST });
     await API_REQUEST(DELETE, `${apis.DELETE_TODO}/${id}`); 
+    const res1 = await API_REQUEST(GET, apis.GET_TODO); 
+    dispatch({
+      type: constants.TODO_LIST_SUCCESS,
+      payload: res1?.data?.data,
+    });
     dispatch({
       type: constants.DELETE_TODO_SUCCESS,
       payload: id,

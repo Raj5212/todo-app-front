@@ -10,7 +10,7 @@ const TaskForm = () => {
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.todos);
   
-  const [formData, setFormData] = useState({ title: '', content: '', isCompleted: false });
+  const [formData, setFormData] = useState({ title: '', content: '', completed: false });
   const [errors, setErrors] = useState({});
   const [editTask, setEditTask] = useState(null);  
   const [deleteTaskId, setDeleteTaskId] = useState(null); 
@@ -32,7 +32,7 @@ const TaskForm = () => {
   };
 
   const handleToggle = () => {
-    setFormData({ ...formData, isCompleted: !formData.isCompleted });
+    setFormData({ ...formData, completed: !formData.completed });
   };
 
   const handleSubmit = (e) => {
@@ -40,7 +40,7 @@ const TaskForm = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       if (editTask) {
-        dispatch(updateTodo(editTask.id, formData)); // Edit task
+        dispatch(updateTodo(editTask._id, formData)); // Edit task
       } else {
         dispatch(addTodo(formData)); // Add task
       }
@@ -51,13 +51,14 @@ const TaskForm = () => {
   };
 
   const resetForm = () => {
-    setFormData({ title: '', content: '', isCompleted: false });
+    setFormData({ title: '', content: '', completed: false });
     setEditTask(null);
   };
 
   const handleEdit = (task) => {
+
     setEditTask(task);
-    setFormData({ title: task.title, content: task.content, isCompleted: task.isCompleted });
+    setFormData({ title: task.title, content: task.content, completed: task.completed });
   };
 
   const handleDelete = (id) => {
@@ -115,7 +116,7 @@ const TaskForm = () => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={formData.isCompleted}
+                  checked={formData.completed}
                   onChange={handleToggle}
                   color="primary"
                 />
@@ -139,21 +140,20 @@ const TaskForm = () => {
           Task List
         </Typography>
         <List>
-          {console.log(todos)}
           {todos?.map((task) => (
             <ListItem key={task?.id}>
               <ListItemText
                 primary={task?.title}
                 secondary={task?.content}
                 sx={{
-                  textDecoration: task?.isCompleted ? 'line-through' : 'none',
+                  textDecoration: task?.completed ? 'line-through' : 'none',
                 }}
               />
               <ListItemSecondaryAction>
                 <IconButton edge="end" onClick={() => handleEdit(task)}>
                   <EditIcon />
                 </IconButton>
-                <IconButton edge="end" onClick={() => handleDelete(task.id)}>
+                <IconButton edge="end" onClick={() => handleDelete(task._id)}>
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>

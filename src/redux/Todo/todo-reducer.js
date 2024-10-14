@@ -64,12 +64,13 @@ export default function todoReducer(state = initialState, action) {
       };
 
     case constants.UPDATE_REQUEST_SUCCESS:
+
       return {
+
+
         ...state,
         isUpdating: false,
-        todos: state.todos.map((todo) =>
-          todo.id === payload.id ? { ...todo, ...payload } : todo // Update the specific To-Do
-        ),
+       
       };
 
     case constants.UPDATE_REQUEST_FAIL:

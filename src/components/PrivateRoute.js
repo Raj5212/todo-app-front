@@ -5,7 +5,6 @@ import { getToken } from '../redux/service';
 
 const PrivateRoute = ({ children }) => {
   const token = getToken();
-  console.log(token)
   return token ? children : <Navigate to="/login" />;
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { login } from '../../redux/Auth/auth-action';
 
@@ -8,8 +8,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
-
-  console.log(auth)
 
   const [userData, setUserData] = useState({
     email: '',
@@ -96,6 +94,13 @@ const Login = () => {
         </Button>
       </form>
       {auth?.isAuth === true && <Typography color="error">{auth?.error}</Typography>}
+      <Typography variant="body2" align="center" style={{ marginTop: '20px' }}>
+        Don't have an account?{' '}
+        <Link onClick={() => navigate('/signup')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          Sign up
+        </Link>
+      </Typography>
+
     </Container>
   );
 };
